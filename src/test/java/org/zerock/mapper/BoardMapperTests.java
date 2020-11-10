@@ -1,10 +1,13 @@
 package org.zerock.mapper;
 
 import java.util.Date;
+import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -22,10 +25,10 @@ public class BoardMapperTests {
 	@Setter(onMethod_ = @Autowired)
 	private BoardMapper boardMapper;
 	
-	@Test
-	public void testGetList() {
-		boardMapper.getList().forEach(board -> log.info(board));
-	}
+//	@Test
+//	public void testGetList() {
+//		boardMapper.getList().forEach(board -> log.info(board));
+//	}
 	
 //	@Test
 //	public void testInsert() {
@@ -54,11 +57,11 @@ public class BoardMapperTests {
 //		log.info(board);
 //	}
 	
-	@Test
-	public void testSelect() {
-		BoardVO vo = boardMapper.read(5L);
-		log.info("\n 	vo : " + vo);
-	}
+//	@Test
+//	public void testSelect() {
+//		BoardVO vo = boardMapper.read(5L);
+//		log.info("\n 	vo : " + vo);
+//	}
 	
 //	@Test
 //	public void deldte() {
@@ -66,5 +69,15 @@ public class BoardMapperTests {
 //		log.info("DELETE COUNT :" + boardMapper.delete(3L));
 //	}
 	
-
+	@Test
+	public void testPaging() {
+		// TODO : 여기서 부터 시작하고 , 지금 cri를 넣어주었는데 지금 데이터 조회가 엄청나게 되고 있음 이거 무슨 문제인지 파악하자. 
+		Criteria cri = new Criteria();
+		
+		cri.setPageNum(3);
+		cri.setAmount(10);
+		
+		boardMapper.getListWithPaging(cri).forEach(board -> log.info(board));;
+		
+	}
 }
