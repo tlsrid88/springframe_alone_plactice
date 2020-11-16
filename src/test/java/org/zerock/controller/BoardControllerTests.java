@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -47,6 +48,7 @@ public class BoardControllerTests {
 //				);
 //	}
 	
+	
 //	@Test
 //	public void testRegister() throws Exception{
 //		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/register")
@@ -70,18 +72,18 @@ public class BoardControllerTests {
 //	
 //	}
 	
-	@Test
-	public void testModify() throws Exception {
-		
-		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
-				.param("bno", "1")
-				.param("title", "modify test22222")
-				.param("content", "new Content2222222")
-				.param("writer", "user00"))
-				.andReturn().getModelAndView().getViewName();
-				
-		log.info(resultPage);
-	}
+//	@Test
+//	public void testModify() throws Exception {
+//		
+//		String resultPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+//				.param("bno", "1")
+//				.param("title", "modify test22222")
+//				.param("content", "new Content2222222")
+//				.param("writer", "user00"))
+//				.andReturn().getModelAndView().getViewName();
+//				
+//		log.info(resultPage);
+//	}
 	
 //	@Test
 //	public void testRemove() throws Exception {
@@ -93,4 +95,8 @@ public class BoardControllerTests {
 //		log.info(resultPage);
 //	}
 	
+	@Test
+	public void testGetList() throws Exception {
+		Criteria cri = new Criteria(1, 10);
+	}
 }
