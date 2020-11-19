@@ -5,30 +5,47 @@
 <%@ include file="../include/header.jsp"%>
 
 <script type="text/javascript">
-	$(document).ready(
-			function() {
+$(document).ready(function() {
+	alert("자바스크립트 테스트");
+	
+	var result = '<c:out value="${result}" />';
+	var actionForm = $("#actionForm");
+	
+	$("#dataTable_paginate2 li a").on("click", function(e) {
+		e.preventDefault();
+		console.log("click");
+		$("#actionForm").find("input[name='pageNum']").val($(this).attr("href"));
+		$("#actionForm").submit();
+	});
+	
+	$("#regBtn").on("click", function() {
+		self.location = "/board/register";
+	});
+	
+	$("tbody tr").on("click", function(){	
+		var $actionFrm = $("#actionForm")
+		$actionFrm.append("<input type='hidden' name='bno' id='bno' value='" + $(this).find("td:eq(0)").text() + "'>");
+		$actionFrm.attr("action", "/board/get");
+		$actionFrm.submit();
+	});
 
-				var result = '<c:out value="${result}" />';
+	checkModal(result);
+	history.replace({}, null, null);
 
-				checkModal(result);
-
-				history.replace({}, null, null);
-
-				function checkModal(result) {
-
-					if (result == '' || history.state) {
-						return;
-					}
-
-					if (parseInt(result) > 0) {
-						$('.modal-body').html(
-								'게시글 : ' + parseInt(result) + "번이 등록되었습니다. ");
-					}
-					$("#myModal").modal("show");
-				}
-			});
+	function checkModal(result) {
+		if (result == '' || history.state) return;
+		if (parseInt(result) > 0) $('.modal-body').html('게시글 : ' + parseInt(result) + "번이 등록되었습니다. ");
+		$("#myModal").modal("show");
+	}
+	
+	
+});
 </script>
 
+<form id="actionForm" action="/board/list" method="get">
+	<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"/>
+	<input type="hidden" name="amount" value="${pageMaker.cri.amount}"/>
+</form>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -100,18 +117,22 @@
 </div>
 
 <!-- 페이징 넘버 -->
-<div class="pull-right">
+<div class="dataTables_paginate paging_simple_numbers" id="dataTable_paginate2">
 	<ul class="pagination">
 		<c:if test="${pageMaker.prev}">
-			<li class="paginate_button page-item previous disabled"><a
-				href="#">Previous</a></li>
+			<li class="paginate_button page-item previous disabled">
+				<a href="${pageMaker.startPage - 1}">Previous</a>
+			</li>
 		</c:if>
-		<c:forEach var="num" begin="${pageMaker.startPage}"
-			end="${pageMaker.endPage}">
-			<li class="paginate_button page-item active"><a href="#">${num}</a></li>
+		<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
+			<li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? 'active':'' } ">
+				<a href="${num}">${num}</a>
+			</li>
 		</c:forEach>
 		<c:if test="${pageMaker.next}">
-			<li class="paginate_button page-item next disabled"><a href="#">Next</a></li>
+			<li class="paginate_button page-item next disabled">
+				<a href="${pageMaker.endPage + 1}">Next</a>
+			</li>
 		</c:if>
 	</ul>
 </div>
