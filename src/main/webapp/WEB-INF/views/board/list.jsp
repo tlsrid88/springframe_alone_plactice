@@ -7,6 +7,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	alert("자바스크립트 테스트");
+	solid();
 	
 	var result = '<c:out value="${result}" />';
 	var actionForm = $("#actionForm");
@@ -40,6 +41,10 @@ $(document).ready(function() {
 	
 	
 });
+
+function solid() {
+	$("#dataTable_paginate2 li.paginate_button.active").attr("style", "border:solid")
+}
 </script>
 
 <form id="actionForm" action="/board/list" method="get">

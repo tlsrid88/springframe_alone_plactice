@@ -25,10 +25,14 @@ $(function(){
 
 </script>
 
+<form id="openForm" action="/board/modify" method="get">
+	<input type="hidden" name="bno" id="bno" value="<c:out value='${bno}'/>">
+	<input type="hidden" name="pageNum" id="pageNum" value='<c:out value="${cri.pageNum}"></c:out>'>
+	<input type="hidden" name="amount" id="amount" value='<c:out value="${cri.amount}"></c:out>'>
+</form>
+
 <body class="bg-gradient-primary">
-
   <div class="container">
-
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
